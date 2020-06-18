@@ -50,6 +50,7 @@ export default function NewPublicity(props: RouteComponentProps<{ id: string }>)
         try {
             await newPromotion({ id: publicityId, title, description, redirectLink, imageId })
             props.history.push("/promotions")
+            window.location.reload(false)
         } catch (error) {
             errorHandler.processRestValidations(error)
         }

@@ -1,16 +1,23 @@
 import React from "react"
-import SecondaryMenu from "./SecondaryMenu"
 import "./RightMenu.css"
 import { useSessionUser } from "../store/userStore"
+import Banner from "../publicity/Banner"
 
 export default function RightMenu() {
     const user = useSessionUser()
 
-    const menu = user ? <SecondaryMenu /> : ''
+    const menu = user ? <Banner /> : ''
 
-    return (
-        <div className="right_menu_div navbar-nav bg-light shadow">
-            {menu}
-        </div>
-    )
+    if (menu !== '') {
+        return (
+            <div className="right_menu_div navbar-nav bg-light shadow">
+                {menu}
+            </div>
+        )
+    } else {
+        return (
+            <div></div>
+        )
+    }
+
 }
