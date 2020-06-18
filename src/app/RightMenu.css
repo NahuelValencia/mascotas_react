@@ -1,0 +1,14 @@
+.right_menu_div {
+    height: 100%;
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+.menu_section {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.menu_item {
+    text-align: right;
+}
