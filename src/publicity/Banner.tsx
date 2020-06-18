@@ -14,7 +14,7 @@ export default function Banner() {
 
     const loadPromotions = async () => {
         try {
-            const result = await getPublicities()
+            const result = await getPublicities(false)
             setPromotions(result)
         } catch (error) {
             errorHandler.processRestValidations(error)

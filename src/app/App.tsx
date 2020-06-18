@@ -44,7 +44,7 @@ export default function App() {
               <LoggedInRoute path="/editPet/:id" component={NewPet} />
               <LoggedInRoute path="/promotions" component={Publicity} />
               <LoggedInRoute path="/newPromotion" component={NewPublicity} />
-              {/* <LoggedInRoute path="/editPromotion/:id" component={EditPublicity} /> */}
+              <LoggedInRoute path="/editPromotion/:id" component={NewPublicity} />
             </td>
             <td className="app_right_menu">
               <RightMenu />

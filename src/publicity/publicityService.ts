@@ -16,6 +16,7 @@ interface UpdatePromotionImageId {
     id: string;
 }
 
+// Create
 export async function newPromotion(payload: Publicity): Promise<Publicity> {
     try {
         const res = (await axios.post(environment.backendUrl + "/v1/promotion", payload)).data as Publicity
@@ -25,9 +26,15 @@ export async function newPromotion(payload: Publicity): Promise<Publicity> {
     }
 }
 
-export async function getPublicities(): Promise<Publicity[]> {
+// List all publicities
+export async function getPublicities(owner: boolean): Promise<Publicity[]> {
+    let res
     try {
-        const res = await axios.get(environment.backendUrl + "/v1/promotion")
+        if (owner) {
+            res = await axios.get(environment.backendUrl + "/v1/ownPromotion")
+        } else {
+            res = await axios.get(environment.backendUrl + "/v1/promotion")
+        }
         return Promise.resolve(res.data as Publicity[])
     } catch (err) {
         return Promise.reject(err)
@@ -49,5 +56,25 @@ export function getImageUrl(id: string) {
         return environment.backendUrl + "/v1/image/" + id
     } else {
         return "/assets/select_image.png"
+    }
+}
+
+// Delete
+export async function deletePromotion(id: string): Promise<void> {
+    try {
+        await axios.delete(environment.backendUrl + "/v1/promotion/" + id)
+        return Promise.resolve()
+    } catch (err) {
+        return Promise.reject(err)
+    }
+}
+
+// Edit
+export async function loadPromotion(id: string): Promise<Publicity> {
+    try {
+        const res = (await axios.get(environment.backendUrl + "/v1/promotion/" + id)).data as Publicity
+        return Promise.resolve(res)
+    } catch (err) {
+        return Promise.reject(err)
     }
 }

@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useErrorHandler } from "../common/utils/ErrorHandler"
 import { goHome } from "../common/utils/Tools"
 import "../styles.css"
-import { newPromotion, updatePromotionPicture, getImageUrl } from "./publicityService"
+import { newPromotion, updatePromotionPicture, getImageUrl, loadPromotion } from "./publicityService"
 import DangerLabel from "../common/components/DangerLabel"
 import FormInput from "../common/components/FormInput"
 import FormButtonBar from "../common/components/FormButtonBar"
@@ -63,6 +63,29 @@ export default function NewPublicity(props: RouteComponentProps<{ id: string }>)
             errorHandler.processRestValidations(error)
         }
     }
+
+    const loadPromotionById = async (id: string) => {
+        if (id) {
+            try {
+                const result = await loadPromotion(id)
+                setPublicityId(result.id)
+                setTitle(result.title)
+                setDescription(result.description)
+                setRedirectLink(result.redirectLink)
+                setImageId(result.imageId)
+            } catch (error) {
+                errorHandler.processRestValidations(error)
+            }
+        }
+    }
+
+    useEffect(() => {
+        const id = props.match.params.id
+        if (id) {
+            void loadPromotionById(id)
+        }
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <GlobalContent>
